@@ -2,22 +2,16 @@
 
 AI-powered parametric insurance for gig workers.
 
-## Project Structure
+## ⚠️ Current Status
 
-This project contains:
-- **Frontend**: React application (`frontend/` directory)
-- **Backend**: FastAPI application (database models, services, and schemas)
-- **Deployment**: Configuration files for Render, Docker, and other platforms
+**Flask application has been completely removed.** The project now contains:
+- ✅ **Frontend**: React application (`frontend/` directory)
+- ✅ **Database**: SQLite with Alembic migrations (`alembic/`, `vytrix.db`)
+- ❌ **Backend**: Needs to be rebuilt (FastAPI or other framework)
 
-## Frontend (React)
+## Quick Start
 
-The React frontend provides a complete user interface for:
-- User registration and profile management
-- Premium calculation and policy management
-- Claim simulation scenarios (rain, fraud, no-activity)
-- Results display with AI-powered assessments
-
-### Running the Frontend
+### Frontend Only (Current State)
 
 ```bash
 cd frontend
@@ -25,50 +19,61 @@ npm install
 npm start
 ```
 
-## Backend (FastAPI)
+### Full Stack (When Backend is Rebuilt)
 
-The backend includes:
-- User management and authentication
-- Policy and premium calculation services
-- Fraud detection and opportunity loss analysis
-- Simulation engines for different scenarios
+1. **Frontend**: `cd frontend && npm install && npm start`
+2. **Backend**: Implement FastAPI/Flask server with the existing database models
+3. **Database**: Run `alembic upgrade head` to apply migrations
 
-### Database
+## Project Structure
 
-The project uses SQLite with Alembic for migrations:
-- Database file: `vytrix.db`
-- Migrations: `alembic/` directory
-- Models: User, Policy, Claim, etc.
+```
+vytrix/
+├── frontend/          # React application
+├── alembic/           # Database migrations
+├── vytrix.db          # SQLite database
+├── DEPLOYMENT.md      # Deployment guide
+├── docker-compose.yml # Docker setup
+├── render.yaml        # Render deployment config
+└── test_scenarios.md  # Test cases
+```
+
+## Database Models (Available for Backend)
+
+The database contains models for:
+- **Users**: Gig worker profiles and risk scores
+- **Policies**: Insurance policies and coverage details
+- **Claims**: Claim records and assessment results
+- **Opportunity Loss**: Activity-based loss calculations
+- **Fraud Detection**: ML-powered fraud risk analysis
 
 ## Deployment
 
-### Render Deployment
+### Render (Recommended)
 
-1. Connect your GitHub repo to Render
-2. Deploy the frontend as a Static Site
-3. Deploy the backend as a Web Service
+1. **Frontend**: Deploy as Static Site from `frontend/` directory
+2. **Backend**: Deploy as Web Service (needs to be rebuilt first)
 
 ### Docker
 
-Use `docker-compose.yml` for local development with all services.
+Use `docker-compose.yml` for local development once backend is implemented.
 
-## Development
+## Next Steps
 
-1. **Frontend**: `cd frontend && npm install && npm start`
-2. **Backend**: Set up Python environment and run FastAPI server
-3. **Database**: Run `alembic upgrade head` to apply migrations
+To complete the application:
 
-## Features
+1. **Rebuild Backend**: Create FastAPI/Flask server using existing database models
+2. **Implement APIs**: User registration, premium calculation, simulation endpoints
+3. **Connect Frontend**: Update React app to connect to new backend APIs
+4. **Test Integration**: Run full-stack tests with simulation scenarios
 
-- **AI-Powered Risk Assessment**: Machine learning models for fraud detection
-- **Parametric Insurance**: Weather-based and activity-based claim triggers
-- **Real-time Simulations**: Test different claim scenarios
-- **Gig Worker Focus**: Specialized for delivery platform workers
+## Features (When Complete)
+
+- **AI-Powered Risk Assessment**: Machine learning for fraud detection
+- **Parametric Insurance**: Weather and activity-based triggers
+- **Real-time Simulations**: Rain, fraud, and no-activity scenarios
+- **Gig Worker Focus**: Specialized for delivery platforms
 - **Multi-platform Support**: Swiggy, Zomato, Uber Eats, DoorDash
-
-## API Documentation
-
-FastAPI provides automatic API documentation at `/docs` when running the backend server.
 
 - `GET /` - Main application interface
 - `GET /api/health` - Health check
